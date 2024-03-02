@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Student Details</title>
+    <style>
+            @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&display=swap');
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Quicksand', sans-serif;
+            background-color: #000;
+            color: #f3e5ab;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        form {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            animation: fadeIn 1s forwards;
+            width: 80%;
+            max-width: 400px; /* Limiting the maximum width of the form */
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px; /* Decreased font size */
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: calc(100% - 16px); /* Adjusting input width */
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 14px; /* Decreased font size */
+        }
+
+        input[type="submit"] {
+            background-color: #f3e5ab;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #e0ca65;
+        }
+    </style>
+</head>
+<body>
+    <form action="/update_details" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address">
+
+        <label for="age">Age:</label>
+        <input type="text" id="age" name="age">
+
+        <label for="roll_number">Roll Number:</label>
+        <input type="text" id="roll_number" name="roll_number">
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+
+        <label for="class">Class:</label>
+        <input type="text" id="class" name="class">
+
+        <label for="section">Section:</label>
+        <input type="text" id="section" name="section">
+
+        <label for="timetable_id">Timetable ID:</label>
+        <input type="text" id="timetable_id" name="timetable_id">
+
+        <label for="attendance">Attendance:</label>
+        <input type="text" id="attendance" name="attendance">
+
+        <label for="pending_fee">Pending Fee:</label>
+        <input type="text" id="pending_fee" name="pending_fee">
+
+        <label for="subject_Math_grade">Math Grade:</label>
+        <input type="text" id="subject_Math_grade" name="subject_Math_grade">
+
+        <label for="subject_English_grade">English Grade:</label>
+        <input type="text" id="subject_English_grade" name="subject_English_grade">
+
+        <label for="subject_Science_Grade">Science Grade:</label>
+        <input type="text" id="subject_Science_Grade" name="subject_Science_Grade">
+
+        <label for="parent_key">Parent Key:</label>
+        <input type="password" id="parent_key" name="parent_key">
+
+        <input type="submit" value="Update Student">
+    </form>
+</body>
+</html>

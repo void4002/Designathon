@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Payment Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+            @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&display=swap');
+        body {
+            background-color: #000;
+            color: #f3e5ab;
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .payment-form-container {
+            width: 400px;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-size: 18px;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #444;
+            color: #f3e5ab;
+        }
+        input[type="text"]::placeholder,
+        input[type="password"]::placeholder {
+            color: #999;
+        }
+        .btn-primary {
+            background-color: #f3e5ab;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn-primary:hover {
+            background-color: #e0ca65;
+        }
+        .btn-exit {
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn-exit:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-form-container">
+        <h2>Payment Form</h2>
+        <form>
+            <div class="form-group">
+                <label for="cardNumber">Card Number</label>
+                <input type="text" id="cardNumber" placeholder="Enter card number">
+            </div>
+            <div class="form-group">
+                <label for="expiryDate">Expiry Date</label>
+                <input type="text" id="expiryDate" placeholder="MM/YYYY">
+            </div>
+            <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input type="password" id="cvv" placeholder="Enter CVV">
+            </div>
+            <button type="submit" class="btn-primary">Pay Now</button>
+            <button type="button" class="btn-exit" onclick="exitForm()">Exit</button>
+        </form>
+    </div>
+
+    <script>
+        function exitForm() {
+            // Redirect to the student dashboard
+            window.location.href = "/student"; // Adjust the URL as needed
+        }
+    </script>
+</body>
+</html>

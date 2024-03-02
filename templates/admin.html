@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+            @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&display=swap');
+        body {
+            background-color: #000;
+            color: #f3e5ab;
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+        }
+
+        nav {
+            background-color: #000;
+            color: #f3e5ab;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: #f3e5ab;
+            text-decoration: none;
+            padding: 10px 15px;
+        }
+
+        nav ul li a:hover {
+            background-color: #f3e5ab;
+            color: #000;
+        }
+
+        .content {
+            display: none;
+            animation: fadeInDown 1s ease-out;
+            width: 80%;
+            margin: auto;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #000;
+            color: #f3e5ab;
+        }
+
+        td {
+            background-color: #333;
+            color: #f3e5ab;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#" onclick="showContent('home_content')">Home</a></li>
+            <li><a href="#" onclick="showContent('add_teacher_form')">Add Teacher</a></li>
+            <li><a href="#" onclick="showContent('add_student_form')">Add Student</a></li>
+            <li><a href="#" onclick="showContent('remove_teacher_form')">Remove Teacher</a></li>
+            <li><a href="#" onclick="showContent('remove_student_form')">Remove Student</a></li>
+            <li><a href="/">Logout</a></li>
+            <li><a href="/certificate">Certificate</a></li>
+        </ul>
+    </nav>
+
+    <div id="home_content" class="content">
+        <h1>Admin Dashboard</h1>
+
+        <!-- Teachers Table -->
+        <h2>Teachers</h2>
+        <table id="teachers_table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Teacher TID</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for teacher in teachers[1:] %}
+                <tr>
+                    <td>{{ teacher[0] }}</td>
+                    <td>{{ teacher[1] }}</td>
+                    <td>{{ teacher[2] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <!-- Students Table -->
+        <h2>Students</h2>
+        <table id="students_table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Age</th>
+                    <th>Roll Number</th>
+                    <th>Username</th>
+                    <th>Class</th>
+                    <th>Section</th>
+                    <th>Timetable ID</th>
+                    <th>Attendance</th>
+                    <th>Pending Fee</th>
+                    <th>Math Grade</th>
+                    <th>English Grade</th>
+                    <th>Science Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students[1:] %}
+                <tr>
+                    <td>{{ student[0] }}</td>
+                    <td>{{ student[1] }}</td>
+                    <td>{{ student[2] }}</td>
+                    <td>{{ student[3] }}</td>
+                    <td>{{ student[4] }}</td>
+                    <td>{{ student[6] }}</td>
+                    <td>{{ student[7] }}</td>
+                    <td>{{ student[8] }}</td>
+                    <td>{{ student[9] }}</td>
+                    <td>{{ student[10] }}</td>
+                    <td>{{ student[11] }}</td>
+                    <td>{{ student[12] }}</td>
+                    <td>{{ student[13] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Add Teacher Form -->
+    <div id="add_teacher_form" class="content">
+        <h3>Add New Teacher</h3>
+        <form method="POST" action="/add_teacher">
+            <label for="teacher_username">Username:</label><br>
+            <input type="text" id="teacher_username" name="teacher_username"><br>
+            <label for="teacher_password">Password:</label><br>
+            <input type="password" id="teacher_password" name="teacher_password"><br><br>
+            <label for="teacher_ttid">Teacher TTID:</label><br>
+            <input type="text" id="teacher_ttid" name="teacher_ttid"><br>
+            <input type="submit" value="Add Teacher">
+        </form>
+    </div>
+
+    <div id="add_student_form" class="content">
+        <h2>Add New Student</h2>
+        <form method="POST" action="/add_student">
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name"><br>
+
+            <label for="address">Address:</label><br>
+            <input type="text" id="address" name="address"><br>
+
+            <label for="age">Age:</label><br>
+            <input type="text" id="age" name="age"><br>
+
+            <label for="roll_number">Roll Number:</label><br>
+            <input type="text" id="roll_number" name="roll_number"><br>
+
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username"><br>
+
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password"><br>
+
+            <label for="class">Class:</label><br>
+            <input type="text" id="class" name="class"><br>
+
+            <label for="section">Section:</label><br>
+            <input type="text" id="section" name="section"><br>
+
+            <label for="timetable_id">Timetable ID:</label><br>
+            <input type="text" id="timetable_id" name="timetable_id"><br>
+
+            <label for="attendance">Attendance:</label><br>
+            <input type="text" id="attendance" name="attendance"><br>
+
+            <label for="pending_fee">Pending Fee:</label><br>
+            <input type="text" id="pending_fee" name="pending_fee"><br>
+
+            <label for="subject_Math_grade">Math Grade:</label><br>
+            <input type="text" id="subject_Math_grade" name="subject_Math_grade"><br>
+
+            <label for="subject_English_grade">English Grade:</label><br>
+            <input type="text" id="subject_English_grade" name="subject_English_grade"><br>
+
+            <label for="subject_Science_Grade">Science Grade:</label><br>
+            <input type="text" id="subject_Science_Grade" name="subject_Science_Grade"><br>
+
+            <label for="parent_key">Parent Key:</label><br>
+            <input type="password" id="parent_key" name="parent_key"><br>
+
+            <input type="submit" value="Add Student">
+        </form>
+    </div>
+
+    <!-- Remove Teacher Form -->
+    <div id="remove_teacher_form" class="content">
+        <h3>Remove Teacher</h3>
+        <form method="POST" action="/remove_teacher">
+            <label for="teacher_username_remove">Username:</label><br>
+            <input type="text" id="teacher_username_remove" name="teacher_username_remove"><br><br>
+            <input type="submit" value="Remove Teacher">
+        </form>
+    </div>
+
+    <!-- Remove Student Form -->
+    <div id="remove_student_form" class="content">
+        <h3>Remove Student</h3>
+        <form method="POST" action="/remove_student">
+            <label for="student_username_remove">Username:</label><br>
+            <input type="text" id="student_username_remove" name="student_username_remove"><br><br>
+            <input type="submit" value="Remove Student">
+        </form>
+    </div>
+
+    <script>
+        function showContent(id) {
+            var contents = document.getElementsByClassName("content");
+            for (var i = 0; i < contents.length; i++) {
+                contents[i].style.display = 'none';
+            }
+            document.getElementById(id).style.display = 'block';
+        }
+
+        // Show home content by default
+        document.addEventListener("DOMContentLoaded", function() {
+            showContent("home_content");
+        });
+    </script>
+</body>
+</html>

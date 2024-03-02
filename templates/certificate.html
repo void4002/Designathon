@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transfer Certificate Generator</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&display=swap');
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      margin: 20px;
+      background-color: #000;
+      color: #f3e5ab;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    form {
+      display: flex;
+      margin: auto;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+      width: 50%;
+      padding: auto;
+      animation: fadeInDown 1s ease-out;
+    }
+    @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+    label {
+      font-weight: bold;
+    }
+    
+    input[type="text"],
+    input[type="date"] {
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: #333;
+      color: #f3e5ab;
+    }
+    nav {
+            background-color: #000;
+            color: #f3e5ab;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: #f3e5ab;
+            text-decoration: none;
+            padding: 10px 15px;
+        }
+
+        nav ul li a:hover {
+            background-color: #f3e5ab;
+            color: #000;
+        }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 16px;
+    }
+    
+    button:hover {
+      background-color: #45a049;
+    }
+    
+    a {
+      text-decoration: none;
+      color: #007bff;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+        <li><a href="/admin">Back to Dashboard</a></li>
+        <li><a href="/certificate">Certificate</a></li>
+    </ul>
+</nav>
+  <h1>Generate Transfer Certificate</h1>
+  <form id="certificate-form" action="{{ url_for('generate') }}" method="POST">
+    <label for="name">Student Name:</label>
+    <input type="text" id="name" name="name" required>
+    <br>
+    <label for="school_name">School Name:</label>
+    <input type="text" id="school_name" name="school_name" required>
+    <br>
+    <label for="reason_for_transfer">Reason for Transfer:</label>
+    <input type="text" id="reason_for_transfer" name="reason_for_transfer" required>
+    <br>
+    <label for="date">Date (YYYY-MM-DD):</label>
+    <input type="date" id="date" name="date" required>
+    <br>
+    <button type="submit">Generate Transfer Certificate</button>
+  </form>
+
+  <a id="download-link" href="#" download="certificate.pdf" style="display: none;">Download Transfer Certificate</a>
+  <script>
+    const form = document.getElementById("certificate-form");
+    const downloadLink = document.getElementById("download-link");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent default form submission
+
+      const formData = new FormData(form);
+
+      // Send data to Flask route
+      fetch("/generate", {
+        method: "POST",
+        body: formData,
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            downloadLink.href = data.download_url;
+            downloadLink.style.display = "block";
+          } else {
+            alert("Error generating transfer certificate: " + data.error);
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          alert("An unexpected error occurred. Please try again later.");
+        });
+    });
+  </script>
+</body>
+</html>

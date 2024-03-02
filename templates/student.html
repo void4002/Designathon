@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+            @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&display=swap');
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Quicksand', sans-serif;
+        }
+        .close-symbol {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #f3e5ab;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .close-symbol:hover {
+            color: #f3e19a;
+        }
+        .main-container {
+            display: flex;
+            justify-content: space-between;
+            animation: fadeInDown 1s ease-out;
+        }
+        .left-container {
+            width: 50%;
+            text-align: center;
+            justify-content: center;
+            color: #f3e5ab;
+            padding: 20px;
+        }
+        .right-container {
+            margin-top: 12px;
+            width: 50%;
+            text-align: center;
+            justify-content: center;
+            color: #f3e5ab;
+            padding: 20px;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.5);
+            min-width: 160px;
+            z-index: 1;
+            margin-top: 10px;
+            margin-left: 270px;
+            border-radius: 5px;
+        }
+        .dropdown-content a {
+            color: #f3e5ab;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropbtn {
+            font-size: 18px;
+            color: #f3e5ab;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .dropbtn:hover {
+            background-color: rgba(0, 0, 0,0);
+        }
+        .dropdown-content a {
+            color: #f3e5ab;
+            text-decoration: none;
+            transition: border-bottom 0.3s, color 0.3s;
+            position: relative;
+            margin-right: 20px;
+            margin-left: 20px;
+            font-size: 19px;
+        }
+        .dropdown-content a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            border-radius: 5px;
+            height: 0.05em;
+            bottom: 0;
+            left: 0;
+            background: currentcolor;
+            transform-origin: bottom right;
+            transition: transform 0.35s ease-out;
+        }
+        .dropdown-content a:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        .dropdown-content a:hover {
+            color: #f3e5ab; 
+        }
+        body {
+            background-color: #000;
+        }
+        nav {
+            background-color: #000;
+            color: #f3e5ab;
+            padding: 20px 0;
+            text-align: center;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav ul li a {
+            color: #f3e5ab;
+            text-decoration: none;
+            padding: 10px 15px;
+        }
+        nav ul li a:hover {
+            background-color: #f3e5ab;
+            text-decoration: none;
+            color: #000;
+        }
+        .img-fluid {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            position: absolute;
+            top: 0.8rem;
+            left: 0.8rem;
+            transition: transform 0.3s;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        tbody{
+            text-align: center;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #000;
+            color: #f3e5ab;
+        }
+
+        td {
+            background-color: #333;
+            color: #f3e5ab;
+        }
+        .announcement{
+    width: 200px;
+    height: 100px;
+    background-color: #000;
+    color: #f3e19a;
+    padding: 20px;
+    text-align: center;
+    margin: 50px auto;
+    opacity: 0; /* Initially hidden */
+    animation: fadeIn 1s forwards; /* Fade-in animation */
+  }
+  .content-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .content {
+            background-color: #444; /* Updated background color */
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #f3e5ab; /* Updated heading color */
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        button {
+            background-color: #f3e5ab; /* Updated button color */
+            color: #333; /* Updated button text color */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #e0ca65; /* Updated button hover color */
+        }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+
+            <li><a href="#" onclick="showModal('pay')">Pay Fee</a></li>
+            <li><a href="#" onclick="showModal('update')">Update Details</a></li>
+            <li><a href="/">Logout</a></li>
+        </ul>
+    </nav>
+    <div id="home_content">
+        <div class="announcement">
+            <p>Welcome, {{ username }}!</p>
+            <p>Pending Fee: {{ pending_fee }}</p>
+        </div>         
+        <div class="main-container">
+            <div class="left-container">
+                <div class="teacher-info" id="teacherInfo">
+                    <button class="dropbtn" onclick="showDropdown()">Find Teacher</button>
+                    <div class="dropdown-content" id="dropdownContent">
+                        <a href="#" onclick="showContent('math')">Math</a>
+                        <a href="#" onclick="showContent('science')">Science</a>
+                    </div>
+                </div>
+                <div class="content-container">
+                    <div id="math_content" class="content" style="display: none;">
+                        <!-- Math content -->
+                        <h2>Math Content</h2>
+                        <p id="math_teacher_info"></p>
+                        <button onclick="closeContent()">Close</button>
+                    </div>
+                    <div id="science_content" class="content" style="display: none;">
+                        <!-- Science content -->
+                        <h2>Science Content</h2>
+                        <p id="science_teacher_info"></p>
+                        <button onclick="closeContent()">Close</button>
+                    </div>
+                </div>
+            </div>
+            <div class="right-container">
+                <h5>Time Table</h5>
+                <table id="teachers_table">
+                    <thead>
+                        <tr>
+                            <th>9:00-10:00</th>
+                            <th>10:00-11:00</th>
+                            <th>11:00-12:00</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in tt[1:] %}
+                        <tr>
+                            <td>{{ i[0] }}</td>
+                            <td>{{ i[1] }}</td>
+                            <td>{{ i[2] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>  
+    </div>   
+    <div class="modal fade" id="parentKeyModal" tabindex="-1" role="dialog" aria-labelledby="parentKeyModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #000; color: #f3e5ab;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="parentKeyModalLabel">Enter Parent Key</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: #f3e5ab;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="password" class="form-control" id="parentKeyInput" placeholder="Enter Parent Key" style="background-color: #222; color: #f3e5ab; border-color: #ccc;">
+                </div>
+                <div class="modal-footer" style="background-color: #000;">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="submitParentKey()" style="background-color: #e0ca65; border-color: #e0ca65;">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="chatbot-button">
+        <button onclick="openChatbot()">
+            <i class="fas fa-comment"></i>
+        </button>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+                var action = ""; // Variable to store the action (Pay Fee or Update Details)
+
+function showModal(item) {
+    action = item; // Set the action variable
+    $('#parentKeyModal').modal('show'); // Show the modal
+}
+function openChatbot() {
+            // Replace this with the code to open your chatbot
+            alert("Chatbot is opening...");
+        }
+function submitParentKey() {
+    var parentKey = $('#parentKeyInput').val();
+    
+    // Check if the parent key matches with the user's parent key
+    if (parentKey === '{{ parent_key }}') {
+        // If the parent key matches, redirect to the payment form
+        if (action === 'pay') {
+            // Redirect to the payment form
+            window.location.href = '/payment';
+        } else if (action === 'update') {
+            // Redirect to the update page
+            window.location.href = '/update';
+        }
+    } else {
+        // If the parent key doesn't match, display an error message or handle accordingly
+        alert('Invalid parent key. Please try again.');
+    }
+    
+    // Hide the modal after submission
+    $('#parentKeyModal').modal('hide');
+}
+        function showDropdown() {
+            $('.dropdown-content').toggle();
+        }
+
+        function showContent(subject) {
+            $('.content').hide();
+            $('#' + subject + '_content').show();
+            fetchTeacherInfo(subject);
+            $('.dropdown-content').hide();
+        }
+
+        function closeContent() {
+            $('.content').hide();
+        }
+
+        function fetchTeacherInfo(subject) {
+            
+        }
+        
+
+  const container = document.querySelector('.announcement');
+  setTimeout(() => {
+    container.remove();
+  }, 4000); 
+    </script>
+</body>
+</html>

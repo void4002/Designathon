@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&display=swap');
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #222;
+            color: #f3e5ab;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Quicksand', sans-serif;
+            background-color: #000;
+            color: #f3e5ab;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #000;
+            padding: 10px;
+            z-index: 999;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #f3e5ab;
+            padding: 10px 15px;
+            border-radius: 5px;
+            background-color: #000;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color:#000;
+        }
+
+        .content {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #000;
+            z-index: 1;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        h1 {
+            color: #f3e5ab;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #f3e5ab;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            background-color: #e0ca65;
+        }
+        
+        nav ul li a:hover {
+            background-color: #f3e5ab;
+            color: #000;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <ul>
+            <li><a href="#" onclick="showContent('change_attendance')">Change Student Attendance</a></li>
+            <li><a href="#" onclick="showContent('add_assign')">Add Assignment</a></li>
+            <li><a href="#" onclick="showContent('apply_leave')">Apply for Leave</a></li>
+            <li><a href="/">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Content Sections -->
+    <div id="change_attendance" class="content">
+        <h1>Change Student Attendance</h1>
+    <!-- Display the list of students with options to change attendance -->
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Attendance</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students[1:] %}
+            <tr>
+                <td>{{ student[0] }}</td>
+                <td>{{ "Present" if student[1] == '1' else "Absent" }}</td>
+                <td>
+                    <form action="/change_attendance" method="POST">
+                        <input type="hidden" name="student_username" value="{{ student[0] }}">
+                        <button type="submit" name="today_attendance" value="1">Mark Present</button>
+                        <button type="submit" name="today_attendance" value="0">Mark Absent</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        <!-- Include your content here -->
+    </div>
+    <div id="add_assign" class="content">
+        <h1>Add Assignment</h1>
+    <form action="{{ url_for('submit_assignment') }}" method="POST">
+        <label for="assignment_description">Assignment Description:</label><br>
+        <textarea id="assignment_description" name="assignment_description" rows="4" cols="50"></textarea><br><br>
+        <input type="submit" value="Submit">
+    </form>
+        <!-- Include your content here -->
+    </div>
+    <div id="apply_leave" class="content">
+        <h1>Apply for Leave</h1>
+        <form action="{{ url_for('submit_leave') }}" method="POST"></form>
+        <label for="leave_reason">Reason for Leave:</label><br>
+        <textarea id="leave_reason" name="leave_reason" rows="4" cols="50"></textarea><br><br>
+        <label for="leave_dates">Leave Dates:</label><br>
+        <input type="date" id="leave_dates" name="leave_dates"><br><br>
+        <label for="leave_period">Leave Period:</label><br>
+        <input type="text" id="leave_period" name="leave_period"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+        <!-- Include your content here -->
+    </div>
+
+    <script>
+        function showContent(id) {
+            var contents = document.getElementsByClassName("content");
+            for (var i = 0; i < contents.length; i++) {
+                contents[i].style.display = 'none';
+            }
+            document.getElementById(id).style.display = 'block';
+        }
+        document.addEventListener("DOMContentLoaded", function() {
+            showContent("change_attendance");
+        });
+    </script>
+</body>
+</html>

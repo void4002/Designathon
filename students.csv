@@ -1,0 +1,4 @@
+name,address,age,roll_number,username,password,class,section,timetable_id,attendance,pending_fee,subject_Math_grade,subject_English_grade,subject_Science_Grade,today_attendance,parent_key
+John Doe,123 Main St,15,101,johndoe,john123,10,A,B216,45,120,A,A,B,1,abc_123
+Jane Smith,456 Elm St,16,102,janesmith,jane456,6,B,A101,43,6700,B,C,C,0,69vineeth69
+test,test,test,test,test,test,test,test,test,test,test,test,test,test,0,test
